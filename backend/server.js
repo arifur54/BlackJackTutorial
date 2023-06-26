@@ -14,6 +14,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/user', async (req, res) => {
+    // this is also a test for Project Milestone#2 - proper implementation will be added in the future.
     try {
         const user = await User.create(req.body);
         res.status(200).json(user);
