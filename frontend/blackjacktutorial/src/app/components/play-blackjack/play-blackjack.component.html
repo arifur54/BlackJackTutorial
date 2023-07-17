@@ -1,0 +1,37 @@
+<div class="container mt-5">
+    <h2 class="text-center">Blackjack Game</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <!-- Player Cards -->
+        <h3>Player Cards</h3>
+        <div class="card-container">
+          <div *ngFor="let card of playerHand">
+            <img src={{card.image}} />
+            {{ card.value }} of {{ card.suit }}
+          </div>
+        </div>
+        <p>Player Score: {{ playerScore }}</p>
+        <div>
+          <button class="btn btn-primary" (click)="onHit()" [disabled]="gameOver">Hit</button>
+          <button class="btn btn-secondary" (click)="onStand()" [disabled]="gameOver">Stand</button>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <!-- Dealer Cards -->
+        <h3>Dealer Cards</h3>
+        <div class="card-container">
+          <div *ngFor="let card of dealerHand">
+            <img src={{card.image}} />
+            {{ card.value }} of {{ card.suit }}
+          </div>
+        </div>
+        <p>Dealer Score: {{ dealerScore }}</p>
+        <div *ngIf="gameOver">
+          <p *ngIf="winner === 'player'">You win!</p>
+          <p *ngIf="winner === 'dealer'">Dealer wins!</p>
+          <p *ngIf="winner === 'tie'">It's a tie!</p>
+          <button class="btn btn-primary" (click)="onReset()">Play Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
