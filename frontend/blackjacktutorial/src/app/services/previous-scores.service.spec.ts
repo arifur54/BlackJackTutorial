@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PreviousScoresService } from './previous-scores.service';
+import { PreviousScoreService } from './previous-scores.service';
 
 describe('PreviousScoresService', () => {
-  let service: PreviousScoresService;
+  let service: PreviousScoreService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(PreviousScoresService);
+    service = TestBed.inject(PreviousScoreService);
   });
 
   it('should be created', () => {
