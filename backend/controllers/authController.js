@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 const passport = require('passport');
 
+// registers the user into database.
 exports.register = async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -27,6 +28,7 @@ exports.register = async (req, res) => {
   }
 };
 
+// logsin the user, using passport middleware.
 exports.login = async (req, res, next) => {
   passport.authenticate('local', { session: false }, (err, user, info) => {
     if (err) {

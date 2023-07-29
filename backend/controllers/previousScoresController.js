@@ -1,5 +1,6 @@
 const PreviousScores = require('../models/previousScores.model');
 
+// saves the score into database.
 const saveResult = async (req, res) => {
   try {
     const { user_id, result, winningCards } = req.body;
@@ -20,7 +21,7 @@ const saveResult = async (req, res) => {
   }
 };
 
-
+// gets all the result. (not implement for current version of the application)
 const getResults = async (req, res) => {
   try {
     const previousScores = await PreviousScores.find();
@@ -31,6 +32,7 @@ const getResults = async (req, res) => {
   }
 };
 
+// gets result based on userId from database
 const getResultsByUserId = async (req, res) => {
   try {
     const user_id = req.params.user_id;
@@ -42,6 +44,7 @@ const getResultsByUserId = async (req, res) => {
   }
 };
 
+// deletes Result based on ResultID
 const deleteResultById = async (req, res) => {
   try {
     const id = req.params._id;
