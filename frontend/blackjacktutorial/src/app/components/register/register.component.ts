@@ -25,7 +25,8 @@ export class RegisterComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
-
+  
+  // Registers the user, has some minor validation. 
   register(): void {
     if(!this.registerForm.valid) {
       window.alert(`email address must contain '@', and password must be min 6 char.`)

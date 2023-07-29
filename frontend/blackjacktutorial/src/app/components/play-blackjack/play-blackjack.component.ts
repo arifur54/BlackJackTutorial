@@ -36,7 +36,8 @@ export class PlayBlackjackComponent implements OnInit {
     this.userId = this.authService.getUserId() 
     console.log(this.userId);
   }
-
+  
+  // creates the Result object to store in database.
   saveResult(): void {
     const resultData: PreviousScore = {
       user_id: this.userId, 
@@ -48,6 +49,7 @@ export class PlayBlackjackComponent implements OnInit {
     this.previousScoreService.saveResult(resultData);
   }
 
+  // Resets game, first during the start of the game and later once the PlayAgain button is clicked.
   async resetGame(): Promise<void> {
     try {
       await this.deckOfCardsService.createDeck();
@@ -65,6 +67,7 @@ export class PlayBlackjackComponent implements OnInit {
     }
   }
 
+  // On thi will draw a singleCard from the deck
   async onHit(): Promise<void> {
     try {
       const drawnCard = await this.deckOfCardsService.drawSingleCard();
@@ -76,6 +79,7 @@ export class PlayBlackjackComponent implements OnInit {
     }
   }
 
+  // onStand will reveal the Dealer card, calculate the Scores and check for winner, and completes the game. 
   onStand(): void {
     this.revealDealerCard();
     this.calculateScores();
@@ -84,17 +88,20 @@ export class PlayBlackjackComponent implements OnInit {
     this.gameOver = true;
   }
 
+  // reveals the Dealers hidden card
   revealDealerCard(): void {
     if (this.dealerHand.length === 1) {
       this.dealerHand.push(this.cards[3]);
     }
   }
 
+  // calculates the score. 
   calculateScores(): void {
     this.playerScore = this.calculateHandScore(this.playerHand);
     this.dealerScore = this.calculateHandScore(this.dealerHand);
   }
 
+  // calculate the currenet score, and sets the appropriate value for the cards
   calculateHandScore(hand: Card[]): number {
     let score = 0;
     let hasAce = false;
@@ -118,6 +125,7 @@ export class PlayBlackjackComponent implements OnInit {
     return score;
   }
 
+  // checks if the player score is more then > 21, and saves the result into database. 
   checkForPlayerBust(): void {
     if (this.playerScore > 21) {
       this.winner = 'dealer';
@@ -126,6 +134,7 @@ export class PlayBlackjackComponent implements OnInit {
     }
   }
 
+  // check for the winner and save the result into database
   checkForWinner(): void {
     if (this.dealerScore > 21) {
       this.winner = 'player';

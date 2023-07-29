@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import axios from 'axios';
 import { Observable, from } from 'rxjs';
-import { addPreviousScore } from '../store/previousScore/previous-score.actions';
 import { PreviousScore } from '../models/previousScore.model';
-import { AuthService } from './auth.service';
+
+// This service takes care of all the score related data handelling.
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,8 @@ export class PreviousScoreService {
   private apiUrl = `http://localhost:5000/previousScore`;
 
   constructor(private store: Store) {}
-
+  
+  // Saves the score to the database.
   saveResult(resultData: PreviousScore): Observable<any> {
     return from(
       axios
@@ -29,6 +30,7 @@ export class PreviousScoreService {
     );
   }
 
+  // gets all results or score from data base. (not implemented for the current version of the app)
   getResults() {
     return axios.get(`${this.apiUrl}/get_result`)
       .then((response) => response.data)
@@ -37,7 +39,8 @@ export class PreviousScoreService {
         return [];
       });
   }
-
+  
+  // gets all results or score from data base based on userID.
   async getResultsByUserId(userId: string) {
     console.log(userId)
     try {
@@ -48,7 +51,8 @@ export class PreviousScoreService {
       return [];
     }
   }
-
+  
+  // deletes a specific score based on resultID.
   async deleteResult(id: string): Promise<void> {
     try {
       await axios.delete(`${this.apiUrl}/delete_result/${id}`);

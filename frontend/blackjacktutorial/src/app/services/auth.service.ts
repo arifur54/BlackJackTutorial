@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { Observable, Subject } from 'rxjs';
 
+// This service takes care of all the data handeling related to Authantication servers.
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +19,7 @@ export class AuthService {
     this.isLoggedIn = this.getIsLoggedInFromLocalStorage();
   }
 
+  // login the user and stores isLoggedIn and userId to local storage
   login(credentials: any) {
     return new Observable(observer => {
       axios.post(`${this.apiUrl}/login`, credentials)
@@ -35,15 +37,18 @@ export class AuthService {
     });
   }
 
+  // gets logged in status from local storage
   private getIsLoggedInFromLocalStorage(): boolean {
     const isLoggedIn = localStorage.getItem(this.isLoggedInKey);
     return isLoggedIn === 'true';
   }
-
+  
+  // logs out the user and clears the local storage
   logout(): void {
     this.isLoggedIn = false;
     this.userId = '';
     this.setIsLoggedInInLocalStorage(false);
+    this.setUserIdInLocalStroage('');
   }
 
     

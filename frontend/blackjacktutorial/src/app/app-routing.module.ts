@@ -9,7 +9,7 @@ import { PlayBlackjackComponent } from './components/play-blackjack/play-blackja
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent }, // Use AlreadyAuthGuard here
+  { path: 'login', component: LoginComponent }, 
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent},
   { path: 'past-score', component: PastScoreComponent},

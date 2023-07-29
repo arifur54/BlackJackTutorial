@@ -29,6 +29,7 @@ export class PastScoreComponent implements OnInit {
     });
   }
 
+  // Deletes the selected score.
   deleteResult(resultId: string): void {
     let conf = confirm("Are you sure you want to delete this data?");
     if(conf){

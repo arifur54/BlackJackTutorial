@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Observable } from 'rxjs';
 import { Card } from '../models/card.model';
 
+// This service takes care of all the data handeling related to deckofcarsAPI.
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +12,8 @@ export class DeckOfCardsService {
   private deckId: string = "";
 
   constructor() {}
-
+  
+  // shuffles the deck of cards 
   async createDeck(): Promise<Card> {
     const url = `${this.apiUrl}/new/shuffle/?deck_count=1`;
     try {
@@ -24,6 +26,7 @@ export class DeckOfCardsService {
     }
   }
 
+  // draws specific cards
   async drawCards(deckId: string, count: number): Promise<any> {
     const url = `${this.apiUrl}/${deckId}/draw/?count=${count}`;
     try {
@@ -34,14 +37,17 @@ export class DeckOfCardsService {
     }
   }
 
+  // draws a single card
   async drawSingleCard(): Promise<any> {
     return this.drawCards(this.deckId, 1);
   }
 
+  // resets the deck
   async resetDeck(): Promise<Card> {
     return this.createDeck();
   }
 
+  // gets the deckID 
   getDeckId(): string {
     return this.deckId;
   }
