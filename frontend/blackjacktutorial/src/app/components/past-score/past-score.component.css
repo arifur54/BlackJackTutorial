@@ -1,0 +1,14 @@
+.card-image {
+    height: 200px;
+    width: 100px;
+    object-fit: contain;
+  }
+
+.card-row {
+    margin: 0;
+    width: 50%;
+}
+  
+.card-col {
+    padding: 0; 
+}

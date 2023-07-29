@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { DeckOfCardsService } from '../../services/deckofcards-service.service';
 import { Card } from '../../models/card.model';
+import { PreviousScoreService } from '../../services/previous-scores.service';
+import { PreviousScore } from '../../models/previousScore.model';
+import { Store } from '@ngrx/store';
+
+import { AuthService } from 'src/app/services/auth.service';
+
 
 @Component({
   selector: 'app-play-blackjack',
@@ -8,7 +14,7 @@ import { Card } from '../../models/card.model';
   styleUrls: ['./play-blackjack.component.css']
 })
 export class PlayBlackjackComponent implements OnInit {
-  
+
   cards: Card[] = [];
   playerHand: Card[] = [];
   dealerHand: Card[] = [];
@@ -16,11 +22,30 @@ export class PlayBlackjackComponent implements OnInit {
   dealerScore = 0;
   gameOver = false;
   winner: string | null = null;
+  showSecondCard = false;
+  userId: string = '';
 
-  constructor(private deckOfCardsService: DeckOfCardsService) {}
+  constructor(
+    private deckOfCardsService: DeckOfCardsService,
+    private authService: AuthService,
+    private previousScoreService: PreviousScoreService 
+  ) { }
 
   ngOnInit(): void {
     this.resetGame();
+    this.userId = this.authService.getUserId() 
+    console.log(this.userId);
+  }
+
+  saveResult(): void {
+    const resultData: PreviousScore = {
+      user_id: this.userId, 
+      result: this.winner === 'player' ? 'you win' : this.winner === 'dealer' ? 'you lose / dealer wins' : `it's a tie`,
+      winningCards: this.winner === 'player' ? this.playerHand : this.dealerHand,
+      playedAt: new Date()
+    };
+
+    this.previousScoreService.saveResult(resultData);
   }
 
   async resetGame(): Promise<void> {
@@ -33,6 +58,7 @@ export class PlayBlackjackComponent implements OnInit {
       this.dealerHand = [this.cards[2], this.cards[3]];
       this.calculateScores();
       this.gameOver = false;
+      this.showSecondCard = false;
       this.winner = null;
     } catch (error) {
       console.error('Error creating/resetting deck:', error);
@@ -54,6 +80,7 @@ export class PlayBlackjackComponent implements OnInit {
     this.revealDealerCard();
     this.calculateScores();
     this.checkForWinner();
+    this.showSecondCard = true;
     this.gameOver = true;
   }
 
@@ -95,6 +122,7 @@ export class PlayBlackjackComponent implements OnInit {
     if (this.playerScore > 21) {
       this.winner = 'dealer';
       this.gameOver = true;
+      this.saveResult();
     }
   }
 
@@ -108,6 +136,7 @@ export class PlayBlackjackComponent implements OnInit {
     } else {
       this.winner = 'player';
     }
+    this.saveResult();
   }
 
   async onReset(): Promise<void> {

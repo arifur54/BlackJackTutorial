@@ -9,15 +9,16 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { StoreModule } from '@ngrx/store';
-import { authReducer } from './store/auth.reducer';
+import { authReducer } from './store/auth/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthEffects } from './store/auth.effects';
+import { AuthEffects } from './store/auth/auth.effects';
 import { PlayBlackjackComponent } from './components/play-blackjack/play-blackjack.component';
 import { PastScoreComponent } from './components/past-score/past-score.component';
-import { HowToPlayComponent } from './components/how-to-play/how-to-play.component';
 import { HelpMenuComponent } from './components/help-menu/help-menu.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthService } from './services/auth.service'; 
+import { previousScoreReducer } from './store/previousScore/previous-score.reducer';
+import { PreviousScoreEffects } from './store/previousScore/previous-score.effects';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,6 @@ import { AuthService } from './services/auth.service';
     NavbarComponent,
     PlayBlackjackComponent,
     PastScoreComponent,
-    HowToPlayComponent,
     HelpMenuComponent,
     HomeComponent
   ],
@@ -36,8 +36,8 @@ import { AuthService } from './services/auth.service';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({ auth: authReducer }),
-    EffectsModule.forRoot([AuthEffects]),
+    StoreModule.forRoot({ auth: authReducer , previousScore: previousScoreReducer }),
+    EffectsModule.forRoot([AuthEffects, PreviousScoreEffects]),
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

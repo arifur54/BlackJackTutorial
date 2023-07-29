@@ -1,5 +1,7 @@
 <div class="container mt-5">
-    <h2 class="text-center">Blackjack Game</h2>
+    <h1 class="text-center">Blackjack Game</h1>
+    <br />
+    <br />
     <div class="row">
       <div class="col-md-6">
         <!-- Player Cards -->
@@ -12,21 +14,26 @@
         </div>
         <p>Player Score: {{ playerScore }}</p>
         <div>
-          <button class="btn btn-primary" (click)="onHit()" [disabled]="gameOver">Hit</button>
-          <button class="btn btn-secondary" (click)="onStand()" [disabled]="gameOver">Stand</button>
+          <button class="btn btn-primary m-3" (click)="onHit()" [disabled]="gameOver">HIT</button>
+          <button class="btn btn-secondary" (click)="onStand()" [disabled]="gameOver">STAND</button>
         </div>
       </div>
       <div class="col-md-6">
         <!-- Dealer Cards -->
         <h3>Dealer Cards</h3>
         <div class="card-container">
-          <div *ngFor="let card of dealerHand">
-            <img src={{card.image}} />
-            {{ card.value }} of {{ card.suit }}
+          <div *ngFor="let card of dealerHand; let i = index">
+            <ng-container *ngIf="i === 0 || showSecondCard">
+              <img src={{card.image}} />
+              {{ card.value }} of {{ card.suit }}
+            </ng-container>
+            <ng-container *ngIf="i !== 0 && !showSecondCard">
+             <h4> Dealer's second card is hidden </h4> 
+            </ng-container>
           </div>
         </div>
-        <p>Dealer Score: {{ dealerScore }}</p>
         <div *ngIf="gameOver">
+          <p>Dealer Score: {{ dealerScore }}</p>
           <p *ngIf="winner === 'player'">You win!</p>
           <p *ngIf="winner === 'dealer'">Dealer wins!</p>
           <p *ngIf="winner === 'tie'">It's a tie!</p>

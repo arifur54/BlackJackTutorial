@@ -1,0 +1,16 @@
+body {
+    background-color: #f8f9fa;
+  }
+  
+  .how-to-play-panel {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .how-to-play-panel h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }

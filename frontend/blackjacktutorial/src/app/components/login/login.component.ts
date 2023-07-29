@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { login } from '../../store/auth.actions';
+import { login } from '../../store/auth/auth.actions';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { login } from '../../store/auth.actions';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private store: Store) { }
+  constructor(private formBuilder: FormBuilder, private store: Store, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -23,6 +24,9 @@ export class LoginComponent implements OnInit {
   login(): void {
     if (this.loginForm.valid) {
       this.store.dispatch(login(this.loginForm.value));
-    }
+      // this.authService.getUserId().subscribe(data => {
+      //   console.log("userId", data)
+      // })
+    } 
   }
 }

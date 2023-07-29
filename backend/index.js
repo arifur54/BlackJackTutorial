@@ -4,6 +4,7 @@ require('dotenv').config();
 const passport = require('passport');
 const cors = require('cors')
 const authRoutes = require('./routes/authRoutes');
+const previousScoreRoutes = require('./routes/previousScoresRoutes');
 const database = require('./config/database');
 const passportConfig = require('./config/passport');
 const mongoose = require('mongoose');
@@ -20,6 +21,7 @@ app.use(cors())
 
 // Routes
 app.use('/auth', authRoutes);
+app.use('/previousScore', previousScoreRoutes);
 
 const connection = mongoose.connection;
 

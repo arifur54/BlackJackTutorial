@@ -17,7 +17,7 @@ export class DeckOfCardsService {
     try {
       const response = await axios.get<Card>(url);
       this.deckId = response.data.deck_id;
-      console.log(response)
+      console.log(response.data)
       return response.data;
     } catch (error) {
       throw error;
