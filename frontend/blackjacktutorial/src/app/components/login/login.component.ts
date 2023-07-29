@@ -24,9 +24,6 @@ export class LoginComponent implements OnInit {
   login(): void {
     if (this.loginForm.valid) {
       this.store.dispatch(login(this.loginForm.value));
-      // this.authService.getUserId().subscribe(data => {
-      //   console.log("userId", data)
-      // })
     } 
   }
 }

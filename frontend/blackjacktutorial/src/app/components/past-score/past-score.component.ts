@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getResultsByUserId, deleteResult } from 'src/app/store/previousScore/previous-score.actions';
+import { getResultsByUserId} from 'src/app/store/previousScore/previous-score.actions';
 import { getPreviousScoreById } from 'src/app/store/previousScore/previous-score.state';
 import { PreviousScoreService } from '../../services/previous-scores.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { PreviousScore } from 'src/app/models/previousScore.model';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-past-score',
@@ -21,14 +20,7 @@ export class PastScoreComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.store.dispatch(loadPreviousScores());
-    // this.store.select(getPreviousScoresLoading).subscribe((previousScores) => {
-    //   console.log(previousScores)
-    //   this.previousScores = previousScores;
-    // });
-    // console.log(this.previousScores)
     this.userId = this.authService.getUserId();
-    // this.store.dispatch(getPreviousScoreById())
     
     this.store.dispatch(getResultsByUserId({ userId: this.userId }));
     this.store.select(getPreviousScoreById).subscribe((previousScores) => {
