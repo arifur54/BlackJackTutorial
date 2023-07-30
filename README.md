@@ -32,3 +32,6 @@ Package                         Version
 @schematics/angular             16.1.4
 rxjs                            7.8.1
 typescript                      5.1.6
+
+#### GitHub repo 
+##### https://github.com/arifur54/BlackJackTutorial/tree/main
