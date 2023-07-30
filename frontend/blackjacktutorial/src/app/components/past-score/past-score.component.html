@@ -25,31 +25,3 @@
       </tr>
     </tbody>
   </table>
-
-  <!-- <div class="container mt-4">
-    <h2>Past Scores</h2>
-    <div *ngIf="(previousScores$ | async)?.length; else noScores">
-      <ul class="list-group">
-        <li class="list-group-item" *ngFor="let score of previousScores$ | async">
-          <div class="row">
-            <div class="col-6">
-              <p><strong>Result:</strong> {{ score.result }}</p>
-              <p><strong>Played At:</strong> {{ score.playedAt | date }}</p>
-            </div>
-            <div class="col-6">
-              <p><strong>Winning Cards:</strong></p>
-              <ul class="list-inline">
-                <li *ngFor="let card of score.winningCards" class="list-inline-item">
-                  <img src="{{ card.image }}" alt="{{ card.code }}" height="100" width="50">
-                </li>
-              </ul>
-            </div>
-          </div>
-          <button class="btn btn-danger" (click)="deleteResult(score._id)">Delete</button>
-        </li>
-      </ul>
-    </div>
-    <ng-template #noScores>
-      <p>No past scores available.</p>
-    </ng-template>
-  </div> -->
